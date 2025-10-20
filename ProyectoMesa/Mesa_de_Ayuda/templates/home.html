@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h2>Mis Solicitudes</h2>
+    
+    <form method="get">
+        <label for="estado">Filtrar por estado:</label>
+        <select name="estado" id="estado">
+            <option value="">Todos</option>
+            <option value="nueva">Nueva</option>
+            <option value="en_progreso">En Progreso</option>
+            <option value="cerrada">Cerrada</option>
+        </select>
+        <button type="submit">Filtrar</button>
+    </form>
+
+   <ul>
+        {% for s in solicitudes %}
+            <li>
+                {{ s.titulo }} ({{ s.categoria }}) -  ({{ s.get_estado_display }}) - {{ s.get_prioridad_display }}
+                {% if s.creador == user or user.is_superuser %}
+                    <a href="{% url 'editar_solicitud' s.pk %}">Editar</a>
+                    <form action="{% url 'eliminar_solicitud' s.pk %}" method="post" style="display:inline;">
+                        {% csrf_token %}
+                        <button type="submit">Eliminar</button>
+                    </form>
+                {% endif %}
+            </li>
+        {% empty %}
+            <li>No tienes solicitudes.</li>
+        {% endfor %}
+    </ul>
+{% endblock %}
