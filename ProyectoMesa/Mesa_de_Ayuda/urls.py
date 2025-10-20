@@ -1,3 +1,9 @@
+"""Rutas (URLs) del app Mesa_de_Ayuda.
+
+Define las rutas utilizadas para listar, crear, editar y eliminar
+solicitudes (tickets).
+"""
+
 from django.urls import path
 from . import views
 
