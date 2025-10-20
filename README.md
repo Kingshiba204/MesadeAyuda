@@ -1,13 +1,13 @@
-🚀 ProyectoMesa — Mesa de Ayuda
+ProyectoMesa — Mesa de Ayuda
 Este documento proporciona las instrucciones necesarias para la instalación, configuración y ejecución del proyecto de Mesa de Ayuda.
 
-📋 Requisitos Previos
+Requisitos Previos
 Asegúrate de tener instalado el siguiente software en tu sistema:
 Python 3.10+
 Git
 Entorno virtual (se recomienda venv o virtualenv)
 
-⚙️ Instalación Rápida (Windows PowerShell)
+Instalación Rápida (Windows PowerShell)
 Sigue estos pasos para poner en marcha el proyecto en un entorno de desarrollo local.
 
 Clona el repositorio y navega al directorio del proyecto: (Nota: La URL del repositorio ha sido corregida; la original era un enlace a un Pull Request).
@@ -41,7 +41,7 @@ PowerShell
 python manage.py runserver
 La aplicación estará disponible en http://127.0.0.1:8000/.
 
-🔧 Configuración de Variables de Entorno
+Configuración de Variables de Entorno
 El archivo .env se utiliza para gestionar variables sensibles y configuraciones locales sin exponerlas en el control de versiones.
 
 Variables Comunes
@@ -67,7 +67,7 @@ ALLOWED_HOSTS=127.0.0.1,localhost
 DATABASE_ENGINE=django.db.backends.sqlite3
 DATABASE_NAME=db.sqlite3
 
-👨‍💻 Usuarios de Demostración
+Usuarios de Demostración
 El proyecto puede incluir (o puedes crear) usuarios de demostración para facilitar las pruebas.
 
 Credenciales de Acceso
@@ -103,7 +103,7 @@ if not User.objects.filter(username='usuario_normal').exists():
     print("Usuario 'usuario_normal' creado exitosamente.")
 
 exit()
-⚠️ Notas Importantes
+Notas Importantes
 Seguridad
 No uses las credenciales de demostración ni claves secretas de ejemplo en un entorno de producción.
 
