@@ -60,8 +60,8 @@ python manage.py shell
 Y ejecuta:
 from django.contrib.auth import get_user_model
 User = get_user_model()
-User.objects.create_user('paciente-0', email='paciente0@example.com', password='cachantun')
-User.objects.create_user('usuario_normal', email='usuario_normal@example.com', password='Secreto123')
+User.objects.create_user('paciente-0', email='paciente0@gmail.com', password='cachantun')
+User.objects.create_user('usuario_normal', email='usuario_normal@gmail.com', password='Secreto123')
 O, si prefieres automatizarlo, puedo generar un comando de management create_demo_users que cree ambos usuarios automáticamente.
 
 Notas importantes
