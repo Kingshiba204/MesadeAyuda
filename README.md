@@ -1,117 +1,126 @@
-ProyectoMesa — Mesa de Ayuda
+PROYECTO MESA — MESA DE AYUDA
+
 Este documento proporciona las instrucciones necesarias para la instalación, configuración y ejecución del proyecto de Mesa de Ayuda.
 
-Requisitos Previos
-Asegúrate de tener instalado el siguiente software en tu sistema:
-Python 3.10+
-Git
-Entorno virtual (se recomienda venv o virtualenv)
+-----------------------------------
+REQUISITOS PREVIOS
+-----------------------------------
 
-Instalación Rápida (Windows PowerShell)
+Asegúrate de tener instalado el siguiente software en tu sistema:
+
+- Python 3.10+
+- Git
+- Entorno virtual (se recomienda venv o virtualenv)
+
+-----------------------------------
+INSTALACIÓN RÁPIDA (Windows PowerShell)
+-----------------------------------
+
 Sigue estos pasos para poner en marcha el proyecto en un entorno de desarrollo local.
 
-Clona el repositorio y navega al directorio del proyecto: (Nota: La URL del repositorio ha sido corregida; la original era un enlace a un Pull Request).
+1. Clona el repositorio y navega al directorio del proyecto:
+   (Nota: La URL del repositorio ha sido corregida; la original era un enlace a un Pull Request).
 
-PowerShell
-git clone https://github.com/Kingshiba204/MesadeAyuda.git
-cd ProyectoMesa
-Crea y activa un entorno virtual (usando PowerShell):
+   git clone https://github.com/Kingshiba204/MesadeAyuda.git
+   cd ProyectoMesa
 
-PowerShell
-python -m venv .venv
-.venv\Scripts\Activate.ps1
-Instala las dependencias del proyecto:
+2. Crea y activa un entorno virtual (usando PowerShell):
 
-PowerShell
+   python -m venv .venv
+   .venv\Scripts\Activate.ps1
 
-pip install -r requirements.txt
-Crea el archivo de entorno a partir del ejemplo:
+3. Instala las dependencias del proyecto:
 
-PowerShell
-Copy-Item .env.example .env
-(Deberás editar el archivo .env recién creado con tu configuración específica, como se detalla en la siguiente sección).
+   pip install -r requirements.txt
 
-Aplica las migraciones de la base de datos:
+4. Crea el archivo de entorno a partir del ejemplo:
 
-PowerShell
-python manage.py migrate
-Ejecuta el servidor de desarrollo:
+   Copy-Item .env.example .env
 
-PowerShell
-python manage.py runserver
-La aplicación estará disponible en http://127.0.0.1:8000/.
+   (Deberás editar el archivo .env recién creado con tu configuración específica).
 
-Configuración de Variables de Entorno
+5. Aplica las migraciones de la base de datos:
+
+   python manage.py migrate
+
+6. Ejecuta el servidor de desarrollo:
+
+   python manage.py runserver
+
+   La aplicación estará disponible en http://127.0.0.1:8000/
+
+-----------------------------------
+CONFIGURACIÓN DE VARIABLES DE ENTORNO
+-----------------------------------
+
 El archivo .env se utiliza para gestionar variables sensibles y configuraciones locales sin exponerlas en el control de versiones.
 
-Variables Comunes
-DJANGO_SECRET_KEY: Clave secreta única para la instancia de Django.
+Variables Comunes:
+- DJANGO_SECRET_KEY: Clave secreta única para la instancia de Django.
+- DEBUG: True para modo desarrollo, False para producción.
+- ALLOWED_HOSTS: Hosts/dominios permitidos separados por comas (ej. 127.0.0.1,localhost).
+- USUARIO_DEMO_USERNAME, USUARIO_DEMO_EMAIL, USUARIO_DEMO_PASSWORD: Credenciales para comandos de creación de usuarios demo (si se implementan).
 
-DEBUG: True para modo desarrollo, False para producción.
+Ejemplo (.env.example):
 
-ALLOWED_HOSTS: Hosts/dominios permitidos separados por comas (ej. 127.0.0.1,localhost).
+   # Configuración Central de Django
+   # REEMPLAZA ESTO con una clave secreta generada
+   DJANGO_SECRET_KEY=replace-this-with-a-secret-key
+   DEBUG=True
+   ALLOWED_HOSTS=127.0.0.1,localhost
 
-USUARIO_DEMO_USERNAME, USUARIO_DEMO_EMAIL, USUARIO_DEMO_PASSWORD: Credenciales para comandos de creación de usuarios demo (si se implementan).
+   # Base de datos (Default SQLite)
+   DATABASE_ENGINE=django.db.backends.sqlite3
+   DATABASE_NAME=db.sqlite3
 
-Ejemplo (.env.example)
-Este es un ejemplo básico de la configuración requerida en tu archivo .env.
-Ini, TOML
+-----------------------------------
+USUARIOS DE DEMOSTRACIÓN
+-----------------------------------
 
-# Configuración Central de Django
-# REEMPLAZA ESTO con una clave secreta generada
-DJANGO_SECRET_KEY=replace-this-with-a-secret-key
-DEBUG=True
-ALLOWED_HOSTS=127.0.0.1,localhost
-
-# Base de datos (Default SQLite)
-DATABASE_ENGINE=django.db.backends.sqlite3
-DATABASE_NAME=db.sqlite3
-
-Usuarios de Demostración
 El proyecto puede incluir (o puedes crear) usuarios de demostración para facilitar las pruebas.
 
-Credenciales de Acceso
-Super Usuario:
-Usuario: paciente-0
-Contraseña: cachantun
+Credenciales de Acceso:
 
-Usuario Normal:
-Usuario: usuario_normal
-Contraseña: Secreto123
+- Super Usuario:
+  Usuario: paciente-0
+  Contraseña: cachantun
 
-Creación Manual (Si no existen)
-Si estás en una instalación nueva y los usuarios no existen, puedes crearlos manualmente:
+- Usuario Normal:
+  Usuario: usuario_normal
+  Contraseña: Secreto123
 
-Abre el shell interactivo de Django:
+Creación Manual (Si no existen):
 
-PowerShell
-python manage.py shell
-Ejecuta el siguiente script de Python dentro del shell:
+1. Abre el shell interactivo de Django:
 
-Python
-from django.contrib.auth import get_user_model
-User = get_user_model()
+   python manage.py shell
 
-# Crear Super Usuario (si no existe)
-if not User.objects.filter(username='paciente-0').exists():
-    User.objects.create_superuser('paciente-0', 'paciente0@gmail.com', 'cachantun')
-    print("Super usuario 'paciente-0' creado exitosamente.")
+2. Ejecuta el siguiente script de Python dentro del shell:
 
-# Crear Usuario Normal (si no existe)
-if not User.objects.filter(username='usuario_normal').exists():
-    User.objects.create_user('usuario_normal', 'usuario_normal@gmail.com', 'Secreto123')
-    print("Usuario 'usuario_normal' creado exitosamente.")
+   from django.contrib.auth import get_user_model
+   User = get_user_model()
 
-exit()
-Notas Importantes
-Seguridad
-No uses las credenciales de demostración ni claves secretas de ejemplo en un entorno de producción.
+   # Crear Super Usuario (si no existe)
+   if not User.objects.filter(username='paciente-0').exists():
+       User.objects.create_superuser('paciente-0', 'paciente0@gmail.com', 'cachantun')
+       print("Super usuario 'paciente-0' creado exitosamente.")
 
-Asegúrate de que tu archivo .env esté listado en .gitignore y nunca se suba al repositorio.
+   # Crear Usuario Normal (si no existe)
+   if not User.objects.filter(username='usuario_normal').exists():
+       User.objects.create_user('usuario_normal', 'usuario_normal@gmail.com', 'Secreto123')
+       print("Usuario 'usuario_normal' creado exitosamente.")
+   
+   exit()
 
-Migraciones
-Las migraciones para la aplicación principal se encuentran en Mesa_de_Ayuda/migrations/.
+-----------------------------------
+NOTAS IMPORTANTES
+-----------------------------------
 
-Ejecuta siempre python manage.py migrate después de clonar el repositorio o cambiar de rama.
+Seguridad:
+- No uses las credenciales de demostración ni claves secretas de ejemplo en un entorno de producción.
+- Asegúrate de que tu archivo .env esté listado en .gitignore y nunca se suba al repositorio.
 
-Si realizas cambios en los modelos (models.py), debes generar nuevas migraciones con python manage.py makemigrations.
+Migraciones:
+- Las migraciones para la aplicación principal se encuentran en Mesa_de_Ayuda/migrations/.
+- Ejecuta siempre python manage.py migrate después de clonar el repositorio o cambiar de rama.
+- Si realizas cambios en los modelos (models.py), debes generar nuevas migraciones con python manage.py makemigrations.
